@@ -7,6 +7,12 @@ export const Board = () => {
     //Track which items are being clicked. Default will be an empty string that will eventually be x or o.
     const [xoInput, setXoInput] = useState(Array(9).fill(""));
     const [winner, setWinner] = useState();
+
+    //usestate that creates a counter to count the number of turns of both players
+    let [count, setCount] = useState(0);
+    console.log(count);
+
+    let [stringCounter, setStringCounter] = useState("");
     
     //Establish array's with the winning combinations of the game   
     //Check if user inputs statisfy the requirements for winning a game
@@ -50,11 +56,15 @@ export const Board = () => {
         if (playerTurn === 'X') {
             //Set that number square in array to X
             squares[num] = "X";
-            setPlayerTurn('O');  
+            setPlayerTurn('O');
+            setCount(count += 1); 
+            setStringCounter(stringCounter + " " + count);
         } else {
             //Set that number square in array to O
             squares[num] = "O";
             setPlayerTurn('X')
+            setCount(count += 1);
+            setStringCounter(stringCounter + " " + count);
         }
         //Update cells state variable to the squares array so it remembers each item that is clicked
         checkWinner(squares);
@@ -62,39 +72,50 @@ export const Board = () => {
         // console.log(squares);
     }
 
+    const handleReset = () => {
+        setWinner(null);
+        setXoInput(Array(9).fill(""));
+        setCount(0);
+        setPlayerTurn('X')
+        setStringCounter("");
+    }
 
   return (
     <div className='container'>
-        Player {playerTurn}, its your turn!
+        {winner ? null : `Player ${playerTurn}, it's your turn!` }
+        <br/>
+        Count: {stringCounter}
         <div className='board'>
+            <table>
+                <tbody>
 
-            <div className='board1'>
+                    <tr className="board-row">
+                        <td><button className="square" num={0} onClick={()=>handleClick(0)}>{xoInput[0]}</button></td>
+                        <td><button className="square" num={1} onClick={()=>handleClick(1)}>{xoInput[1]}</button></td>
+                        <td><button className="square" num={2} onClick={()=>handleClick(2)}>{xoInput[2]}</button></td>
+                    </tr>
 
-                <div className="board-row">
-                    <button className="square" num={0} onClick={()=>handleClick(0)}>{xoInput[0]}</button>
-                    <button className="square" num={1} onClick={()=>handleClick(1)}>{xoInput[1]}</button>
-                    <button className="square" num={2} onClick={()=>handleClick(2)}>{xoInput[2]}</button>
-                </div>
+                    <tr className="board-row">
+                        <td><button className="square" num={3} onClick={()=>handleClick(3)}>{xoInput[3]}</button></td>
+                        <td><button className="square" num={4} onClick={()=>handleClick(4)}>{xoInput[4]}</button></td>
+                        <td><button className="square" num={5} onClick={()=>handleClick(5)}>{xoInput[5]}</button></td>
+                    </tr>
 
-                <div className="board-row">
-                    <button className="square" num={3} onClick={()=>handleClick(3)}>{xoInput[3]}</button>
-                    <button className="square" num={4} onClick={()=>handleClick(4)}>{xoInput[4]}</button>
-                    <button className="square" num={5} onClick={()=>handleClick(5)}>{xoInput[5]}</button>
-                </div>
+                    <tr className="board-row">
+                        <td><button className="square" num={6} onClick={()=>handleClick(6)}>{xoInput[6]}</button></td>
+                        <td><button className="square" num={7} onClick={()=>handleClick(7)}>{xoInput[7]}</button></td>
+                        <td><button className="square" num={8} onClick={()=>handleClick(8)}>{xoInput[8]}</button></td>
+                    </tr>
 
-                <div className="board-row">
-                    <button className="square" num={6} onClick={()=>handleClick(6)}>{xoInput[6]}</button>
-                    <button className="square" num={7} onClick={()=>handleClick(7)}>{xoInput[7]}</button>
-                    <button className="square" num={8} onClick={()=>handleClick(8)}>{xoInput[8]}</button>
-                </div>
-
-            </div>
-
+                </tbody>
+            </table>
         </div>
         {/* //display to the users that one of the players has won if there inputs statisfy the requirements for winning */}
         {/* { winner && <p>Player {winner} is the winner!</p>} */}
-        { winner === 'X' || winner === 'O' ? <p>Player {winner} is the winner!</p> : <p>Game is tied</p>}
-
+        { winner === 'X' || winner === 'O' ? <p>Player {winner} is the winner!</p> : null}
+        { count === 9 && (winner === 'X' || winner === 'O') ? <p>It's a tie</p> : null }
+        <br/>
+        <button onClick={()=>handleReset()}>Reset</button>
     </div>
   )
 }
