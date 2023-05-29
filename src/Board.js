@@ -11,7 +11,7 @@ export const Board = () => {
     //usestate that creates a counter to count the number of turns of both players
     let [count, setCount] = useState(0);
     console.log(count);
-
+    //useState that counts strings of the number of each turn
     let [stringCounter, setStringCounter] = useState("");
     
     //Establish array's with the winning combinations of the game   
