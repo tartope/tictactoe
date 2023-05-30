@@ -112,11 +112,10 @@ export const Board = () => {
             </table>
         </div>
         {/* //display to the users that one of the players has won if there inputs statisfy the requirements for winning */}
-        { winner === 'X' || winner === 'O' ? <p>Player {winner} is the winner!</p> : null}
-        { count === 9 && winner === undefined ? <p>It's a tie!</p> : null }
+        { winner === 'X' || winner === 'O' ? <p>Player {winner} is the winner! Game is finished!</p> : null}
+        { count === 9 && winner === undefined ? <p>It's a tie! Game is finished!</p> : null }
         <br/>
-        <button onClick={()=>handleReset()}>Reset</button>
-        {/* test */}
+        { count === 9 || winner ? <button onClick={()=>handleReset()}>Reset</button> : null }
     </div>
   )
 }
