@@ -84,6 +84,9 @@ export const Board = () => {
   return (
     <div className='container'>
         {winner ? null : `Player ${playerTurn}, it's your turn!` }
+        {/* //display to the users that one of the players has won if there inputs statisfy the requirements for winning */}
+        { winner === 'X' || winner === 'O' ? <p>Player {winner} is the winner! Game is finished!</p> : null}
+        { count === 9 && winner === undefined ? <p>It's a tie! Game is finished!</p> : null }
         <br/>
         Count: {stringCounter}
         <div className='board'>
@@ -111,9 +114,6 @@ export const Board = () => {
                 </tbody>
             </table>
         </div>
-        {/* //display to the users that one of the players has won if there inputs statisfy the requirements for winning */}
-        { winner === 'X' || winner === 'O' ? <p>Player {winner} is the winner! Game is finished!</p> : null}
-        { count === 9 && winner === undefined ? <p>It's a tie! Game is finished!</p> : null }
         <br/>
         { count === 9 || winner ? <button onClick={()=>handleReset()}>Reset</button> : null }
     </div>
