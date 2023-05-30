@@ -7,10 +7,10 @@ export const Board = () => {
     //Track which items are being clicked. Default will be an empty string that will eventually be x or o.
     const [xoInput, setXoInput] = useState(Array(9).fill(""));
     const [winner, setWinner] = useState();
+    console.log(winner)
 
     //usestate that creates a counter to count the number of turns of both players
     let [count, setCount] = useState(0);
-    console.log(count);
 
     let [stringCounter, setStringCounter] = useState("");
     
@@ -111,9 +111,8 @@ export const Board = () => {
             </table>
         </div>
         {/* //display to the users that one of the players has won if there inputs statisfy the requirements for winning */}
-        {/* { winner && <p>Player {winner} is the winner!</p>} */}
         { winner === 'X' || winner === 'O' ? <p>Player {winner} is the winner!</p> : null}
-        { count === 9 && (winner === 'X' || winner === 'O') ? <p>It's a tie</p> : null }
+        { count === 9 && winner === undefined ? <p>It's a tie</p> : null }
         <br/>
         <button onClick={()=>handleReset()}>Reset</button>
     </div>
