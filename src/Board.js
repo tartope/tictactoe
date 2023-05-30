@@ -115,7 +115,7 @@ export const Board = () => {
             </table>
         </div>
         <br/>
-        { count === 9 || winner ? <button onClick={()=>handleReset()}>Reset</button> : null }
+        { count === 9 || winner ? <button className ="reset" onClick={()=>handleReset()}>Reset</button> : null }
     </div>
   )
 }
