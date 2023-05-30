@@ -2,3 +2,7 @@
   margin: 0px;
   padding: 0px;
 }
+
+body {
+  background: linear-gradient(to right, #ff00fb, #ffd000)
+}
